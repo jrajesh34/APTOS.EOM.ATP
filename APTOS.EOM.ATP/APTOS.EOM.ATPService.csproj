@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ATP.Models\ATP.Models.csproj" />
+    <ProjectReference Include="..\ATP.Services\ATP.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ATP.DataAccess.Interfaces",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ATP.DataAccess", "ATP.DataAccess\ATP.DataAccess.csproj", "{380CE3FE-EC5D-4E46-A0A6-649D1028E82B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Interfaces", "ATP.Interfaces\ATP.Interfaces.csproj", "{7276307D-5553-46E0-BE7A-E3A98F96062F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{380CE3FE-EC5D-4E46-A0A6-649D1028E82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{380CE3FE-EC5D-4E46-A0A6-649D1028E82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{380CE3FE-EC5D-4E46-A0A6-649D1028E82B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7276307D-5553-46E0-BE7A-E3A98F96062F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7276307D-5553-46E0-BE7A-E3A98F96062F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7276307D-5553-46E0-BE7A-E3A98F96062F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7276307D-5553-46E0-BE7A-E3A98F96062F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
