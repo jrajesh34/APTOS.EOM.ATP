@@ -20,7 +20,7 @@ namespace ATP.Models
         public string CustomData3 { get; set; }
         public string CustomData4 { get; set; }
         public string CustomData5 { get; set; }
-        public List<ItemDto> Items { get; set; }
+        public List<ATPItem> Items { get; set; }
         public ShipToAddress ShipAddress { get; set; }
         public ItemDimension ItemDimension { get; set; }
     }

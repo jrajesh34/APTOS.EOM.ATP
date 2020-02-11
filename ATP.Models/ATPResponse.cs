@@ -16,6 +16,6 @@ namespace ATP.Models
         public string LogisticsResponseCode { get; set; }
         public string LogisticsResponseMessage { get; set; }
         public decimal TotalShippingCost { get; set; }
-        public List<ItemDto> ItemATPResponse { get; set; }
+        public List<ATPItem> ItemATPResponse { get; set; }
     }
 }
