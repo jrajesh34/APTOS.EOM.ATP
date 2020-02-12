@@ -9,13 +9,16 @@ namespace ATP.Models
     {
         public int ATPId { get; set; }
         public int CartId { get; set; }
-        public string ResponseType { get; set; }
-        public string ResponseCode { get; set; }
-        public string ResponseMessage { get; set; }
+        public string ATPResponseType { get; set; }
+        public string ATPResponseCode { get; set; }
+        public string ATPResponseMessage { get; set; }
         public string LogisticsResponseType { get; set; }
         public string LogisticsResponseCode { get; set; }
         public string LogisticsResponseMessage { get; set; }
+        public string SalesChannelData { get; set; }
+        public string LogisticsData { get; set; }
         public decimal TotalShippingCost { get; set; }
-        public List<ATPItem> ItemATPResponse { get; set; }
+        public List<ItemDto> ItemATPResponse { get; set; }
+
     }
 }

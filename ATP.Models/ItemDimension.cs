@@ -9,8 +9,6 @@ namespace ATP.Models
         public decimal Length { get; set; }
         public decimal Width { get; set; }
         public decimal Height { get; set; }
-        public decimal ItemWeight { get; set; }
-        public string Carrier { get; set; }
-        public string ServiceLevel { get; set; }
+        public decimal ItemWeight { get; set; }        
     }
 }
