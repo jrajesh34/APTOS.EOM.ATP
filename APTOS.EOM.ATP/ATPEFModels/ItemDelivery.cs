@@ -18,8 +18,8 @@ namespace APTOS.EOM.ATPService.ATPEFModels
         public DateTime? ShippingDatetimeUtc { get; set; }
         public DateTime? DcDeliveryDatetimeUtc { get; set; }
         public int? LeadTimeInDays { get; set; }
-        public DateTime? CreateDatetimeUtc { get; set; }
-        public DateTime? UpdateDatetimeUtc { get; set; }
+        public DateTime CreateDatetimeUtc { get; set; }
+        public DateTime UpdateDatetimeUtc { get; set; }
 
         public virtual AtpItem Atpitem { get; set; }
         public virtual ServiceStatus ServiceStatus { get; set; }

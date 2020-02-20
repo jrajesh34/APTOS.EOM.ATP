@@ -12,13 +12,13 @@ namespace APTOS.EOM.ATPService.ATPEFModels
         }
 
         public long AtpTransactionId { get; set; }
-        public long? CartId { get; set; }
-        public int? OrderId { get; set; }
-        public decimal? TotalDeliveryCost { get; set; }
+        public long? Cartexternalid { get; set; }
+        public int? Orderinternalid { get; set; }
+        public decimal? Totaldeliverycost { get; set; }
         public string SalesChannelData { get; set; }
         public string LogisticsData { get; set; }
-        public DateTime? CreateDatetimeUtc { get; set; }
-        public DateTime? UpdateDatetimeUtc { get; set; }
+        public DateTime CreateDatetimeUtc { get; set; }
+        public DateTime UpdateDatetimeUtc { get; set; }
 
         public virtual ICollection<AtpItem> AtpItem { get; set; }
         public virtual ICollection<AtpTransactionNotes> AtpTransactionNotes { get; set; }

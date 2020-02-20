@@ -27,11 +27,9 @@ namespace APTOS.EOM.ATPService.ATPEFModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=sql.dev.eom.aptos.io;Database=ATP;User ID=RJeyapaul;PWD=;");
+                optionsBuilder.UseSqlServer("Server=sql.dev.eom.aptos.io;Database=ATP;User ID=;PWD=;");
             }
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,7 +41,15 @@ namespace APTOS.EOM.ATPService.ATPEFModels
 
                 entity.Property(e => e.CreateDatetimeUtc).HasColumnType("datetime");
 
+                entity.Property(e => e.Isnonmerchflag).HasColumnName("isnonmerchflag");
+
+                entity.Property(e => e.Iteminternalid).HasColumnName("iteminternalid");
+
                 entity.Property(e => e.LogisticsData).HasMaxLength(500);
+
+                entity.Property(e => e.Productexternalid).HasColumnName("productexternalid");
+
+                entity.Property(e => e.Productinternalid).HasColumnName("productinternalid");
 
                 entity.Property(e => e.SalesChannelData).HasMaxLength(500);
 
@@ -62,26 +68,34 @@ namespace APTOS.EOM.ATPService.ATPEFModels
 
             modelBuilder.Entity<AtpTransaction>(entity =>
             {
+                entity.Property(e => e.Cartexternalid).HasColumnName("cartexternalid");
+
                 entity.Property(e => e.CreateDatetimeUtc).HasColumnType("datetime");
 
-                entity.Property(e => e.LogisticsData).HasMaxLength(500);
+                entity.Property(e => e.LogisticsData).HasColumnType("text");
 
-                entity.Property(e => e.SalesChannelData).HasMaxLength(500);
+                entity.Property(e => e.Orderinternalid).HasColumnName("orderinternalid");
 
-                entity.Property(e => e.TotalDeliveryCost).HasColumnType("numeric(18, 2)");
+                entity.Property(e => e.SalesChannelData).HasColumnType("text");
+
+                entity.Property(e => e.Totaldeliverycost)
+                    .HasColumnName("totaldeliverycost")
+                    .HasColumnType("numeric(19, 4)");
 
                 entity.Property(e => e.UpdateDatetimeUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<AtpTransactionNotes>(entity =>
             {
-                entity.Property(e => e.Context).HasMaxLength(50);
+                entity.Property(e => e.Atptranscontext)
+                    .HasColumnName("atptranscontext")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Atptransnote)
+                    .HasColumnName("atptransnote")
+                    .HasColumnType("text");
 
                 entity.Property(e => e.CreateDatetimeUtc).HasColumnType("datetime");
-
-                entity.Property(e => e.Note).HasMaxLength(200);
-
-                entity.Property(e => e.NoteReferenceId).HasMaxLength(20);
 
                 entity.Property(e => e.UpdateDatetimeUtc).HasColumnType("datetime");
 
@@ -106,7 +120,7 @@ namespace APTOS.EOM.ATPService.ATPEFModels
 
                 entity.Property(e => e.DeliveryTimeWindow).HasMaxLength(20);
 
-                entity.Property(e => e.ItemDeliveryCost).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.ItemDeliveryCost).HasColumnType("decimal(19, 4)");
 
                 entity.Property(e => e.PickDatetimeUtc).HasColumnType("datetime");
 
@@ -162,12 +176,14 @@ namespace APTOS.EOM.ATPService.ATPEFModels
                     .HasMaxLength(50)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Comments).HasMaxLength(500);
-
                 entity.Property(e => e.ServiceConfigValue)
                     .IsRequired()
                     .HasColumnName("serviceConfigValue")
                     .HasMaxLength(100);
+
+                entity.Property(e => e.Serviceconfigcomments)
+                    .HasColumnName("serviceconfigcomments")
+                    .HasMaxLength(500);
             });
 
             modelBuilder.Entity<ServiceStatus>(entity =>

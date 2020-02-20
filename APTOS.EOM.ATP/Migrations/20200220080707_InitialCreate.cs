@@ -14,13 +14,13 @@ namespace APTOS.EOM.ATPService.Migrations
                 {
                     AtpTransactionId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CartId = table.Column<long>(nullable: true),
-                    OrderId = table.Column<int>(nullable: true),
-                    TotalDeliveryCost = table.Column<decimal>(type: "numeric(18, 2)", nullable: true),
-                    SalesChannelData = table.Column<string>(maxLength: 500, nullable: true),
-                    LogisticsData = table.Column<string>(maxLength: 500, nullable: true),
-                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true)
+                    cartexternalid = table.Column<long>(nullable: true),
+                    orderinternalid = table.Column<int>(nullable: true),
+                    totaldeliverycost = table.Column<decimal>(type: "numeric(19, 4)", nullable: true),
+                    SalesChannelData = table.Column<string>(type: "text", nullable: true),
+                    LogisticsData = table.Column<string>(type: "text", nullable: true),
+                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,8 @@ namespace APTOS.EOM.ATPService.Migrations
                 {
                     serviceConfigKey = table.Column<string>(maxLength: 50, nullable: false),
                     serviceConfigValue = table.Column<string>(maxLength: 100, nullable: false),
-                    Comments = table.Column<string>(maxLength: 500, nullable: true)
+                    serviceconfigcomments = table.Column<string>(maxLength: 500, nullable: true),
+                    IsActiveFlag = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,16 +63,16 @@ namespace APTOS.EOM.ATPService.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AtpTransactionId = table.Column<long>(nullable: false),
                     LineId = table.Column<int>(nullable: false),
-                    InternalItemId = table.Column<long>(nullable: false),
-                    ExternalProductId = table.Column<long>(nullable: true),
-                    InternalProductId = table.Column<long>(nullable: true),
+                    iteminternalid = table.Column<long>(nullable: false),
+                    productexternalid = table.Column<long>(nullable: true),
+                    productinternalid = table.Column<long>(nullable: true),
                     shippingmethod = table.Column<string>(maxLength: 50, nullable: true),
                     QuantityRequested = table.Column<int>(nullable: true),
-                    NonMerchFlag = table.Column<bool>(nullable: true),
+                    isnonmerchflag = table.Column<bool>(nullable: true),
                     SalesChannelData = table.Column<string>(maxLength: 500, nullable: true),
                     LogisticsData = table.Column<string>(maxLength: 500, nullable: true),
-                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true)
+                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,11 +92,11 @@ namespace APTOS.EOM.ATPService.Migrations
                     AtpTransactionNotesId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AtpTransactionId = table.Column<long>(nullable: false),
-                    Context = table.Column<string>(maxLength: 50, nullable: true),
-                    NoteReferenceId = table.Column<string>(maxLength: 20, nullable: true),
-                    Note = table.Column<string>(maxLength: 200, nullable: true),
-                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true)
+                    atptranscontext = table.Column<string>(maxLength: 50, nullable: true),
+                    NoteReferenceId = table.Column<long>(nullable: true),
+                    atptransnote = table.Column<string>(type: "text", nullable: true),
+                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,7 +119,7 @@ namespace APTOS.EOM.ATPService.Migrations
                     Carrier = table.Column<string>(maxLength: 50, nullable: true),
                     ServiceLevel = table.Column<string>(maxLength: 50, nullable: true),
                     GroupId = table.Column<int>(nullable: true),
-                    ItemDeliveryCost = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
+                    ItemDeliveryCost = table.Column<decimal>(type: "decimal(19, 4)", nullable: true),
                     DeliveryTimeWindow = table.Column<string>(maxLength: 20, nullable: true),
                     ServiceStatusId = table.Column<int>(nullable: true),
                     DeliveryDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true),
@@ -126,8 +127,8 @@ namespace APTOS.EOM.ATPService.Migrations
                     ShippingDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true),
                     DcDeliveryDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true),
                     LeadTimeInDays = table.Column<int>(nullable: true),
-                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true)
+                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,10 +158,10 @@ namespace APTOS.EOM.ATPService.Migrations
                     ShippingLocaionInternalId = table.Column<int>(nullable: true),
                     PickupLocaionExternalId = table.Column<string>(maxLength: 50, nullable: true),
                     PickupLocaionInternalId = table.Column<int>(nullable: true),
-                    QuantityReserved = table.Column<bool>(nullable: true),
+                    IsQuantityReservedFlag = table.Column<bool>(nullable: false),
                     ServiceStatusId = table.Column<int>(nullable: true),
-                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true),
-                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: true)
+                    CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {

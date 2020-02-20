@@ -7,6 +7,7 @@ namespace APTOS.EOM.ATPService.ATPEFModels
     {
         public string ServiceConfigKey { get; set; }
         public string ServiceConfigValue { get; set; }
-        public string Comments { get; set; }
+        public string Serviceconfigcomments { get; set; }
+        public bool IsActiveFlag { get; set; }
     }
 }

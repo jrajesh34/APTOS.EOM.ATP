@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APTOS.EOM.ATPService.Migrations
 {
     [DbContext(typeof(ATPContext))]
-    [Migration("20200219154714_InitialCreate")]
+    [Migration("20200220080707_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,21 +30,25 @@ namespace APTOS.EOM.ATPService.Migrations
 
                     b.Property<long>("AtpTransactionId");
 
-                    b.Property<DateTime?>("CreateDatetimeUtc")
+                    b.Property<DateTime>("CreateDatetimeUtc")
                         .HasColumnType("datetime");
 
-                    b.Property<long?>("ExternalProductId");
+                    b.Property<bool?>("Isnonmerchflag")
+                        .HasColumnName("isnonmerchflag");
 
-                    b.Property<long>("InternalItemId");
-
-                    b.Property<long?>("InternalProductId");
+                    b.Property<long>("Iteminternalid")
+                        .HasColumnName("iteminternalid");
 
                     b.Property<int>("LineId");
 
                     b.Property<string>("LogisticsData")
                         .HasMaxLength(500);
 
-                    b.Property<bool?>("NonMerchFlag");
+                    b.Property<long?>("Productexternalid")
+                        .HasColumnName("productexternalid");
+
+                    b.Property<long?>("Productinternalid")
+                        .HasColumnName("productinternalid");
 
                     b.Property<int?>("QuantityRequested");
 
@@ -55,7 +59,7 @@ namespace APTOS.EOM.ATPService.Migrations
                         .HasColumnName("shippingmethod")
                         .HasMaxLength(50);
 
-                    b.Property<DateTime?>("UpdateDatetimeUtc")
+                    b.Property<DateTime>("UpdateDatetimeUtc")
                         .HasColumnType("datetime");
 
                     b.HasKey("AtpitemId");
@@ -71,23 +75,26 @@ namespace APTOS.EOM.ATPService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CartId");
+                    b.Property<long?>("Cartexternalid")
+                        .HasColumnName("cartexternalid");
 
-                    b.Property<DateTime?>("CreateDatetimeUtc")
+                    b.Property<DateTime>("CreateDatetimeUtc")
                         .HasColumnType("datetime");
 
                     b.Property<string>("LogisticsData")
-                        .HasMaxLength(500);
+                        .HasColumnType("text");
 
-                    b.Property<int?>("OrderId");
+                    b.Property<int?>("Orderinternalid")
+                        .HasColumnName("orderinternalid");
 
                     b.Property<string>("SalesChannelData")
-                        .HasMaxLength(500);
+                        .HasColumnType("text");
 
-                    b.Property<decimal?>("TotalDeliveryCost")
-                        .HasColumnType("numeric(18, 2)");
+                    b.Property<decimal?>("Totaldeliverycost")
+                        .HasColumnName("totaldeliverycost")
+                        .HasColumnType("numeric(19, 4)");
 
-                    b.Property<DateTime?>("UpdateDatetimeUtc")
+                    b.Property<DateTime>("UpdateDatetimeUtc")
                         .HasColumnType("datetime");
 
                     b.HasKey("AtpTransactionId");
@@ -103,19 +110,20 @@ namespace APTOS.EOM.ATPService.Migrations
 
                     b.Property<long>("AtpTransactionId");
 
-                    b.Property<string>("Context")
+                    b.Property<string>("Atptranscontext")
+                        .HasColumnName("atptranscontext")
                         .HasMaxLength(50);
 
-                    b.Property<DateTime?>("CreateDatetimeUtc")
+                    b.Property<string>("Atptransnote")
+                        .HasColumnName("atptransnote")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreateDatetimeUtc")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Note")
-                        .HasMaxLength(200);
+                    b.Property<long?>("NoteReferenceId");
 
-                    b.Property<string>("NoteReferenceId")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime?>("UpdateDatetimeUtc")
+                    b.Property<DateTime>("UpdateDatetimeUtc")
                         .HasColumnType("datetime");
 
                     b.HasKey("AtpTransactionNotesId");
@@ -137,7 +145,7 @@ namespace APTOS.EOM.ATPService.Migrations
                     b.Property<string>("Carrier")
                         .HasMaxLength(50);
 
-                    b.Property<DateTime?>("CreateDatetimeUtc")
+                    b.Property<DateTime>("CreateDatetimeUtc")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime?>("DcDeliveryDatetimeUtc")
@@ -152,7 +160,7 @@ namespace APTOS.EOM.ATPService.Migrations
                     b.Property<int?>("GroupId");
 
                     b.Property<decimal?>("ItemDeliveryCost")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(19, 4)");
 
                     b.Property<int?>("LeadTimeInDays");
 
@@ -167,7 +175,7 @@ namespace APTOS.EOM.ATPService.Migrations
                     b.Property<DateTime?>("ShippingDatetimeUtc")
                         .HasColumnType("datetime");
 
-                    b.Property<DateTime?>("UpdateDatetimeUtc")
+                    b.Property<DateTime>("UpdateDatetimeUtc")
                         .HasColumnType("datetime");
 
                     b.HasKey("ItemDeliveryId");
@@ -188,15 +196,15 @@ namespace APTOS.EOM.ATPService.Migrations
                     b.Property<long>("AtpitemId")
                         .HasColumnName("ATPItemId");
 
-                    b.Property<DateTime?>("CreateDatetimeUtc")
+                    b.Property<DateTime>("CreateDatetimeUtc")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsQuantityReservedFlag");
 
                     b.Property<string>("PickupLocaionExternalId")
                         .HasMaxLength(50);
 
                     b.Property<int?>("PickupLocaionInternalId");
-
-                    b.Property<bool?>("QuantityReserved");
 
                     b.Property<int?>("ServiceStatusId");
 
@@ -205,7 +213,7 @@ namespace APTOS.EOM.ATPService.Migrations
 
                     b.Property<int?>("ShippingLocaionInternalId");
 
-                    b.Property<DateTime?>("UpdateDatetimeUtc")
+                    b.Property<DateTime>("UpdateDatetimeUtc")
                         .HasColumnType("datetime");
 
                     b.HasKey("ItemReservationId");
@@ -223,13 +231,16 @@ namespace APTOS.EOM.ATPService.Migrations
                         .HasColumnName("serviceConfigKey")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Comments")
-                        .HasMaxLength(500);
+                    b.Property<bool>("IsActiveFlag");
 
                     b.Property<string>("ServiceConfigValue")
                         .IsRequired()
                         .HasColumnName("serviceConfigValue")
                         .HasMaxLength(100);
+
+                    b.Property<string>("Serviceconfigcomments")
+                        .HasColumnName("serviceconfigcomments")
+                        .HasMaxLength(500);
 
                     b.HasKey("ServiceConfigKey")
                         .HasName("PK_atpinfrastructure");
