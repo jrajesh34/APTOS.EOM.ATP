@@ -108,12 +108,12 @@ namespace APTOS.EOM.ATPService.Migrations
 
                     b.Property<long>("AtpTransactionId");
 
-                    b.Property<string>("Atptranscontext")
-                        .HasColumnName("atptranscontext")
+                    b.Property<string>("AtptransContext")
+                        .HasColumnName("atptransContext")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Atptransnote")
-                        .HasColumnName("atptransnote")
+                    b.Property<string>("AtptransNote")
+                        .HasColumnName("atptransNote")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreateDatetimeUtc")
@@ -199,17 +199,19 @@ namespace APTOS.EOM.ATPService.Migrations
 
                     b.Property<bool>("IsQuantityReservedFlag");
 
-                    b.Property<string>("PickupLocaionExternalId")
+                    b.Property<string>("PickupLocationExternalId")
+                        .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("PickupLocaionInternalId");
+                    b.Property<int>("PickupLocationInternalId");
 
-                    b.Property<int?>("ServiceStatusId");
+                    b.Property<int>("ServiceStatusId");
 
-                    b.Property<string>("ShippingLocaionExternalId")
+                    b.Property<string>("ShippingLocationExternalId")
+                        .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("ShippingLocaionInternalId");
+                    b.Property<int>("ShippingLocationInternalId");
 
                     b.Property<DateTime>("UpdateDatetimeUtc")
                         .HasColumnType("datetime");
@@ -225,22 +227,19 @@ namespace APTOS.EOM.ATPService.Migrations
 
             modelBuilder.Entity("APTOS.EOM.ATPService.ATPEFModels.ServiceConfiguration", b =>
                 {
-                    b.Property<string>("ServiceConfigKey")
-                        .HasColumnName("serviceConfigKey")
+                    b.Property<string>("SettingKey")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("IsActiveFlag");
+                    b.Property<bool>("IsActive");
 
-                    b.Property<string>("ServiceConfigValue")
-                        .IsRequired()
-                        .HasColumnName("serviceConfigValue")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Serviceconfigcomments")
-                        .HasColumnName("serviceconfigcomments")
+                    b.Property<string>("SettingComments")
                         .HasMaxLength(500);
 
-                    b.HasKey("ServiceConfigKey")
+                    b.Property<string>("SettingValue")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("SettingKey")
                         .HasName("PK_atpinfrastructure");
 
                     b.ToTable("ServiceConfiguration");
@@ -248,20 +247,21 @@ namespace APTOS.EOM.ATPService.Migrations
 
             modelBuilder.Entity("APTOS.EOM.ATPService.ATPEFModels.ServiceStatus", b =>
                 {
-                    b.Property<int>("ServiceStatusId")
+                    b.Property<int>("StatusId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Description")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("StatusDescription")
-                        .HasMaxLength(100);
+                    b.HasKey("StatusId")
+                        .HasName("status_pkey");
 
-                    b.HasKey("ServiceStatusId");
-
-                    b.HasIndex("Status")
+                    b.HasIndex("Name")
                         .IsUnique()
                         .HasName("status_atpstatusname_key");
 

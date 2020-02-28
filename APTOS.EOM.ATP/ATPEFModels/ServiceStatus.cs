@@ -11,9 +11,9 @@ namespace APTOS.EOM.ATPService.ATPEFModels
             ItemReservation = new HashSet<ItemReservation>();
         }
 
-        public int ServiceStatusId { get; set; }
-        public string Status { get; set; }
-        public string StatusDescription { get; set; }
+        public int StatusId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
         public virtual ICollection<ItemDelivery> ItemDelivery { get; set; }
         public virtual ICollection<ItemReservation> ItemReservation { get; set; }

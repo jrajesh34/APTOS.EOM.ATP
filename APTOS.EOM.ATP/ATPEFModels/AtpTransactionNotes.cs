@@ -7,9 +7,9 @@ namespace APTOS.EOM.ATPService.ATPEFModels
     {
         public long AtpTransactionNotesId { get; set; }
         public long AtpTransactionId { get; set; }
-        public string Atptranscontext { get; set; }
+        public string AtptransContext { get; set; }
         public long? NoteReferenceId { get; set; }
-        public string Atptransnote { get; set; }
+        public string AtptransNote { get; set; }
         public DateTime CreateDatetimeUtc { get; set; }
         public DateTime UpdateDatetimeUtc { get; set; }
 

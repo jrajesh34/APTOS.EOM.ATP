@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace APTOS.EOM.ATPService.ATPEFModels
 {
-    public partial class ATPContext : DbContext
+    public class ATPContext : DbContext
     {
         public ATPContext()
         {
@@ -27,7 +27,8 @@ namespace APTOS.EOM.ATPService.ATPEFModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=sql.dev.eom.aptos.io;Database=ATP;User ID=;PWD=;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=sql.dev.eom.aptos.io;Database=ATP;User ID=RJeyapaul;PWD=Zensarin@1;");
             }
         }
 
@@ -87,12 +88,12 @@ namespace APTOS.EOM.ATPService.ATPEFModels
 
             modelBuilder.Entity<AtpTransactionNotes>(entity =>
             {
-                entity.Property(e => e.Atptranscontext)
-                    .HasColumnName("atptranscontext")
+                entity.Property(e => e.AtptransContext)
+                    .HasColumnName("atptransContext")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Atptransnote)
-                    .HasColumnName("atptransnote")
+                entity.Property(e => e.AtptransNote)
+                    .HasColumnName("atptransNote")
                     .HasColumnType("text");
 
                 entity.Property(e => e.CreateDatetimeUtc).HasColumnType("datetime");
@@ -148,9 +149,13 @@ namespace APTOS.EOM.ATPService.ATPEFModels
 
                 entity.Property(e => e.CreateDatetimeUtc).HasColumnType("datetime");
 
-                entity.Property(e => e.PickupLocaionExternalId).HasMaxLength(50);
+                entity.Property(e => e.PickupLocationExternalId)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.ShippingLocaionExternalId).HasMaxLength(50);
+                entity.Property(e => e.ShippingLocationExternalId)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.UpdateDatetimeUtc).HasColumnType("datetime");
 
@@ -163,40 +168,40 @@ namespace APTOS.EOM.ATPService.ATPEFModels
                 entity.HasOne(d => d.ServiceStatus)
                     .WithMany(p => p.ItemReservation)
                     .HasForeignKey(d => d.ServiceStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ItemReservation_ATPStatus");
             });
 
             modelBuilder.Entity<ServiceConfiguration>(entity =>
             {
-                entity.HasKey(e => e.ServiceConfigKey)
+                entity.HasKey(e => e.SettingKey)
                     .HasName("PK_atpinfrastructure");
 
-                entity.Property(e => e.ServiceConfigKey)
-                    .HasColumnName("serviceConfigKey")
+                entity.Property(e => e.SettingKey)
                     .HasMaxLength(50)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.ServiceConfigValue)
-                    .IsRequired()
-                    .HasColumnName("serviceConfigValue")
-                    .HasMaxLength(100);
+                entity.Property(e => e.SettingComments).HasMaxLength(500);
 
-                entity.Property(e => e.Serviceconfigcomments)
-                    .HasColumnName("serviceconfigcomments")
-                    .HasMaxLength(500);
+                entity.Property(e => e.SettingValue)
+                    .IsRequired()
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<ServiceStatus>(entity =>
             {
-                entity.HasIndex(e => e.Status)
+                entity.HasKey(e => e.StatusId)
+                    .HasName("status_pkey");
+
+                entity.HasIndex(e => e.Name)
                     .HasName("status_atpstatusname_key")
                     .IsUnique();
 
-                entity.Property(e => e.Status)
+                entity.Property(e => e.Description).HasMaxLength(100);
+
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.Property(e => e.StatusDescription).HasMaxLength(100);
             });
         }
     }

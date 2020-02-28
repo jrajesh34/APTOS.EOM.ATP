@@ -31,28 +31,28 @@ namespace APTOS.EOM.ATPService.Migrations
                 name: "ServiceConfiguration",
                 columns: table => new
                 {
-                    serviceConfigKey = table.Column<string>(maxLength: 50, nullable: false),
-                    serviceConfigValue = table.Column<string>(maxLength: 100, nullable: false),
-                    serviceconfigcomments = table.Column<string>(maxLength: 500, nullable: true),
-                    IsActiveFlag = table.Column<bool>(nullable: false)
+                    SettingKey = table.Column<string>(maxLength: 50, nullable: false),
+                    SettingValue = table.Column<string>(maxLength: 100, nullable: false),
+                    SettingComments = table.Column<string>(maxLength: 500, nullable: true),
+                    IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_atpinfrastructure", x => x.serviceConfigKey);
+                    table.PrimaryKey("PK_atpinfrastructure", x => x.SettingKey);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ServiceStatus",
                 columns: table => new
                 {
-                    ServiceStatusId = table.Column<int>(nullable: false)
+                    StatusId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Status = table.Column<string>(maxLength: 50, nullable: false),
-                    StatusDescription = table.Column<string>(maxLength: 100, nullable: true)
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServiceStatus", x => x.ServiceStatusId);
+                    table.PrimaryKey("status_pkey", x => x.StatusId);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,9 +92,9 @@ namespace APTOS.EOM.ATPService.Migrations
                     AtpTransactionNotesId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AtpTransactionId = table.Column<long>(nullable: false),
-                    atptranscontext = table.Column<string>(maxLength: 50, nullable: true),
+                    atptransContext = table.Column<string>(maxLength: 50, nullable: true),
                     NoteReferenceId = table.Column<long>(nullable: true),
-                    atptransnote = table.Column<string>(type: "text", nullable: true),
+                    atptransNote = table.Column<string>(type: "text", nullable: true),
                     CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false),
                     UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
@@ -143,7 +143,7 @@ namespace APTOS.EOM.ATPService.Migrations
                         name: "FK_ItemDelivery_ATPStatus",
                         column: x => x.ServiceStatusId,
                         principalTable: "ServiceStatus",
-                        principalColumn: "ServiceStatusId",
+                        principalColumn: "StatusId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -154,12 +154,12 @@ namespace APTOS.EOM.ATPService.Migrations
                     ItemReservationId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ATPItemId = table.Column<long>(nullable: false),
-                    ShippingLocaionExternalId = table.Column<string>(maxLength: 50, nullable: true),
-                    ShippingLocaionInternalId = table.Column<int>(nullable: true),
-                    PickupLocaionExternalId = table.Column<string>(maxLength: 50, nullable: true),
-                    PickupLocaionInternalId = table.Column<int>(nullable: true),
+                    ShippingLocationExternalId = table.Column<string>(maxLength: 50, nullable: false),
+                    ShippingLocationInternalId = table.Column<int>(nullable: false),
+                    PickupLocationExternalId = table.Column<string>(maxLength: 50, nullable: false),
+                    PickupLocationInternalId = table.Column<int>(nullable: false),
                     IsQuantityReservedFlag = table.Column<bool>(nullable: false),
-                    ServiceStatusId = table.Column<int>(nullable: true),
+                    ServiceStatusId = table.Column<int>(nullable: false),
                     CreateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false),
                     UpdateDatetimeUtc = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
@@ -176,7 +176,7 @@ namespace APTOS.EOM.ATPService.Migrations
                         name: "FK_ItemReservation_ATPStatus",
                         column: x => x.ServiceStatusId,
                         principalTable: "ServiceStatus",
-                        principalColumn: "ServiceStatusId",
+                        principalColumn: "StatusId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -213,7 +213,7 @@ namespace APTOS.EOM.ATPService.Migrations
             migrationBuilder.CreateIndex(
                 name: "status_atpstatusname_key",
                 table: "ServiceStatus",
-                column: "Status",
+                column: "Name",
                 unique: true);
         }
 
